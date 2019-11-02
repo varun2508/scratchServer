@@ -14,25 +14,38 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "scratch_dev",
+    "public": false
+  },
+  "Client": {
+    "dataSource": "scratch_dev",
+    "public": true
+
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "scratch_dev",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "scratch_dev",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "scratch_dev",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
+  "Email": {
+    "dataSource": "emailDs"
+  },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "scratch_dev",
     "public": false
+  },
+  "Game": {
+    "dataSource": "scratch_dev",
+    "public": true
   }
 }

@@ -1,0 +1,203 @@
+<head>
+    <style type="text/css"> 
+    .body {
+      font-family: sans-serif;
+      height: 100%;
+      background: #e5e5e5;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    
+    }
+    .wrapper {
+      border: 1px solid #e0e0e0;
+      height: 80%;
+      width: 90%;
+      margin: 20px auto 0 auto;
+      background: #fff;
+      border-radius: 5px;
+      width: 600px;
+    }
+    .header {
+      height: 50px;
+      width: 90%;
+      padding: 20px;
+      border: 1px solid transparent;
+    }
+    .image-container {
+      width: 55%;
+      float: left;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      float: left;
+      margin-top: 5px;
+      border-radius: 5px;
+    }
+    .game-title {
+      margin-left: 50px;
+      color: #fe5b3b;
+      font-weight: bolder;
+      font-size: 19px;
+      margin-top: 15px;
+    }
+    .date {
+      width: 30%;
+      float: right;
+      color: #828282;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    /* MAIN CONTAINER STYLES */
+    
+    .main {
+      /* height: 1000px; */
+    }
+    
+    .main-image-container {
+      background-size: cover;
+      height: 337px;
+      width: 100%;
+      background-image: url('https://s3.eu-central-1.amazonaws.com/www.brosweb.co/casino.png');
+    }
+    .main-image-container > div {
+      margin: 0 auto;
+    }
+    
+    .main-title {
+      margin-left: 25px;
+    }
+    .main-title > p {
+      font-weight: bold;
+      font-family: Arial;
+      font-size: 28px;
+      line-height: 36px;
+    }
+    .second-title {
+      margin-left: 25px;
+    }
+    
+    .second-title > p {
+      font-weight: bold;
+      font-family: Arial;
+      font-size: 20px;
+      line-height: 24px;
+    }
+    .simple-text {
+      margin-left: 25px;
+    }
+    .simple-text > p {
+      font-family: Arial;
+      font-size: 14px;
+      line-height: 20px;
+      color: #828282;
+    }
+    .button-container {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      width: 100%;
+    }
+    .button-container > div {
+      margin: 0 auto;
+      width: 200px;
+    }
+    .button {
+      background-color: #fbdc42;
+      border-radius: 25px;
+      width: 200px;
+      height: 50px;
+    }
+    .button > p {
+      color: #333333;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    /* FOOTER STYLES */
+    
+    .footer {
+      display: block;
+      height: 200px;
+      border: 1px solid transparent;
+    }
+    .stay-in-touch {
+      width: 130px;
+      font-weight: bolder;
+      margin: 0 auto;
+      padding: 10px;
+      font-family: Arial;
+      font-size: 20px;
+      line-height: 24px;
+    }
+    .social-container {
+      display: -webkit-box;
+      width: 125px;
+      margin: 0 auto;
+    }
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .devider {
+      height: 1px;
+      background: #c6c6c9;
+      width: 90%;
+      margin: 10px auto;
+    }
+    .info-container {
+      margin-top: 0px;
+    }
+    .info-container > p {
+      width: 50%;
+      color: #828282;
+      margin: 0 auto;
+      text-align: center;
+      font-family: Arial;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    
+    </style>
+    </head>
+    
+    </style>
+    <div class="body">
+      <div class="wrapper">
+        <div class="header">
+          <div class="image-container">
+            <img
+              src="https://s3.eu-central-1.amazonaws.com/www.brosweb.co/2.png"
+              alt="logo"
+              class="logo"
+              width="40"
+              height="40"
+            />
+            <p class="game-title">Scratch&Win</p>
+          </div>
+          <div>
+            <div class="date">05 Mar 19, 03:43 pm</div>
+          </div>
+        </div>
+        <div class="main">
+          <div class="main-image-container">
+    
+          </div>
+          <div class="main-title"><p>Main title goes here goes here</p></div>
+          <div class="devider"></div>
+          <div class="second-title"><p>Second title goes here goes here</p></div>
+          <div class="simple-text">
+            <p>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout
+            </p>
+          </div>
+          <div class="button-container">
+            <div>
+                <a href="<%= url%>?access_token=<%= info.accessToken.id %>" style="text-decoration: none;">
+              <button class="button"> <p>	 Reset</p></button></a>
+            </div>
+        </div>
+        </div>
+      </div>
+
+    </div>

@@ -1,0 +1,111 @@
+{
+  "name": "Client",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "replaceOnPUT": false,
+  "restrictResetPasswordTokenScope": true,
+  "properties": {
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "firstName": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": false
+    },
+    "birthDate": {
+      "type": "string",
+      "required": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "required": true
+    },
+    "userType": {
+      "type": "string",
+      "required": false
+    },
+    "createdAt": {
+      "type": "string",
+      "require": false
+    },
+    "plan": {
+      "type": "string",
+      "require": false
+    },
+  "tockens": {
+    "type": "number",
+    "require": false
+  },
+  "cashBalance": {
+    "type": "object",
+    "required": false
+  },
+  "bankDetails": {
+    "type": "object",
+    "required": false
+  },
+  "secretQuestions": {
+    "type": "object",
+    "required": false
+  },
+  "notifications":{
+    "type": "object",
+    "required": false
+  },
+  "winRatio": {
+    "type": "number",
+    "require": false
+  },
+  "referalLink":{
+    "type": "string",
+    "require": false
+  },
+  "lastPlayedType": {
+    "type": "array",
+    "required": false
+  },
+  "favorites": {
+    "type": "array",
+    "required": false
+  }
+  },
+  "validations": [],
+  "relations": {
+    "game": {
+      "type": "hasMany",
+      "model": "Game",
+      "foreignKey": "clientId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "model": "Client",
+      "property": "*",
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

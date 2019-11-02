@@ -2,5 +2,29 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "scratch_dev": {
+    "url": "mongodb://clientapp:Scratch1212@ds127429.mlab.com:27429/scratch_dev",
+    "name": "scratch_dev",
+    "connector": "loopback-connector-mongodb"
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "helpg798@gmail.com",
+          "pass": "varun2508"
+        }
+      }
+    ]
   }
 }

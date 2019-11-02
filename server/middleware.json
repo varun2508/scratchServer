@@ -13,24 +13,36 @@
     },
     "helmet#xssFilter": {},
     "helmet#frameguard": {
-      "params": { "action": "deny" }
+      "params": {
+        "action": "deny"
+      }
     },
     "helmet#hsts": {
       "params": {
-        "maxAge": 0,
+        "maxAge": 5184000,
         "includeSubdomains": true
       }
     },
-    "helmet#hidePoweredBy": {},
+    "helmet#hidePoweredBy": {      "params": {
+      "setTo": "PHP 7.2.6"
+    }},
     "helmet#ieNoOpen": {},
     "helmet#noSniff": {},
     "helmet#noCache": {
-      "enabled": false
+      "max-age": 864000
     }
   },
   "session": {},
   "auth": {},
-  "parse": {},
+  "parse": {"body-parser#json": {
+    "params": { "limit": "5mb" }
+  },
+  "body-parser#urlencoded": {
+    "params": {
+      "limit": "5mb",
+      "extended": true
+    }
+  }},
   "routes": {
     "loopback#rest": {
       "paths": [
