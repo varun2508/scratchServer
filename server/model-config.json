@@ -20,7 +20,6 @@
   "Client": {
     "dataSource": "scratch_dev",
     "public": true
-
   },
   "AccessToken": {
     "dataSource": "scratch_dev",
@@ -45,6 +44,14 @@
     "public": false
   },
   "Game": {
+    "dataSource": "scratch_dev",
+    "public": true
+  },
+  "WinHistory": {
+    "dataSource": "scratch_dev",
+    "public": true
+  },
+  "WeeklyTop": {
     "dataSource": "scratch_dev",
     "public": true
   }

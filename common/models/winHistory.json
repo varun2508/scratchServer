@@ -1,0 +1,38 @@
+{
+  "name": "WinHistory",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "firstName": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": false
+    },
+    "gameName": {
+      "type": "string",
+      "required": false
+    },
+    "date": {
+      "type": "string",
+      "required": false
+    },
+    "amount": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

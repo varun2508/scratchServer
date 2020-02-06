@@ -1,0 +1,27 @@
+{
+  "name": "WeeklyTop",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "currentWeek": {
+      "type": "string",
+      "required": false
+    },
+    "avarageWin": {
+      "type": "string",
+      "required": false
+    },
+
+    "listOfWinners": {
+      "type": "object",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

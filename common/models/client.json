@@ -38,11 +38,13 @@
     },
     "plan": {
       "type": "string",
-      "require": false
+      "required": false,
+      "default": "Bronze"
     },
   "tockens": {
     "type": "number",
-    "require": false
+    "require": false,
+    "default": 0
   },
   "cashBalance": {
     "type": "object",

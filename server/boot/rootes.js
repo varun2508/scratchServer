@@ -1,29 +1,73 @@
-'use strict';
+"use strict";
 
-const debug = require('debug')('routes');
+const debug = require("debug")("routes");
+var getWeek = require("date-fns/getWeek");
 
 module.exports = function(app) {
-  app.post('/api/Clients/login', function(req, response, next) {
+  const prepareWeeklyTop = statisticData => {
+    const WeeklyTop = app.models.WeeklyTop;
+    const currentWeek = getWeek(new Date());
+    WeeklyTop.find({}, (err, weeklyTop) => {
+      if (+weeklyTop[0].currentWeek === currentWeek) {
+        if (statisticData.win) {
+          weeklyTop[0].wins = weeklyTop[0].wins + 1;
+          weeklyTop[0].top.push(statisticData);
+        } else {
+          weeklyTop[0].losses = weeklyTop[0].losses + 1;
+        }
+        const totalGamesNumber = weeklyTop[0].wins + weeklyTop[0].losses;
+        let avgWinRation = (weeklyTop[0].wins * 100) / totalGamesNumber;
+        weeklyTop[0].avgWinRatio = avgWinRation;
+        WeeklyTop.upsertWithWhere(
+          { id: weeklyTop[0].id },
+          weeklyTop[0],
+          (err, obj) => {}
+        );
+      } else {
+        WeeklyTop.upsertWithWhere(
+          { id: weeklyTop[0].id },
+          {
+            currentWeek: currentWeek,
+            avgWinRatio: 0,
+            wins: 0,
+            losses: 0,
+            top: []
+          },
+          (err, obj) => {}
+        );
+      }
+    });
+  };
+
+  const changeWinHistory = statisticData => {
+    const WinHistory = app.models.WinHistory;
+    WinHistory.create(statisticData, (err, createdObj) => {
+      if (err) throw err;
+      console.log("----winhistory created------");
+    });
+  };
+
+  app.post("/api/Clients/login", function(req, response, next) {
     const User = app.models.Client;
     let userRole, token;
-    console.log('-------user login req.body---', req.body);
+    console.log("-------user login req.body---", req.body);
     let userLogin = User.login(
       {
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
       },
-      'user'
+      "user"
     );
 
     userLogin
       .then(
         tokenObject => {
           token = tokenObject;
-          console.log('------token----', token);
+          console.log("------token----", token);
           return User.find({
             where: {
-              email: req.body.email,
-            },
+              email: req.body.email
+            }
           });
         },
         err => {
@@ -31,18 +75,18 @@ module.exports = function(app) {
         }
       )
       .then(res => {
-        console.log('-------user login---', res);
+        console.log("-------user login---", res);
         if (res[0].isActive === false) {
           response.status(400).send({
-            message: 'Your accound has been deactivated!',
-            statusCode: 401,
+            message: "Your accound has been deactivated!",
+            statusCode: 401
           });
           return;
         } else {
           return app.models.RoleMapping.find({
             where: {
-              principalId: token.userId,
-            },
+              principalId: token.userId
+            }
           });
         }
       })
@@ -50,40 +94,72 @@ module.exports = function(app) {
         if (res[0] !== undefined) {
           return app.models.Role.find({
             where: {
-              id: res[0].roleId,
-            },
+              id: res[0].roleId
+            }
           });
         } else {
-          console.log('Role for this user was not found.');
+          console.log("Role for this user was not found.");
           return res;
           // response.status(404).send('Not Found');
         }
       })
       .then(res => {
         userRole = res[0].name;
-        console.log('------user----', token.__data.user, 'userrole', userRole);
+        console.log("------user----", token.__data.user, "userrole", userRole);
         response.send({
           email: req.body.email,
           token: token.id,
           ttl: token.ttl,
           createdAt: token.created,
-          userId: token.userId,
+          userId: token.userId
         });
       })
       .catch(err => {
-        console.log('Error during login: ', JSON.stringify(err));
+        console.log("Error during login: ", JSON.stringify(err));
         response
           .status(err.statusCode)
-          .send({message: err.message, statusCode: err.statusCode});
+          .send({ message: err.message, statusCode: err.statusCode });
       });
   });
 
   // show password reset form
-  app.get('/reset-password', function(req, res, next) {
+  app.get("/reset-password", function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
-    res.render('password-reset', {
+    res.render("password-reset", {
       redirectUrl:
-        '/api/Clients/reset-password?access_token=' + req.accessToken.id,
+        "/api/Clients/reset-password?access_token=" + req.accessToken.id
+    });
+  });
+
+  app.post("/api/updateTockens", function(req, res, next) {
+    console.log("----updateTockens------");
+    const User = app.models.Client;
+
+    const statisticData = {
+      userId: req.body.userId,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      gameName: req.body.gameName,
+      date: req.body.date,
+      amount: req.body.amount,
+      win: req.body.win
+    };
+
+    if (statisticData.date) {
+      changeWinHistory(statisticData);
+      prepareWeeklyTop(statisticData);
+    }
+
+    User.findById(req.body.userId, (err, client) => {
+      if (client) {
+        client.updateAttributes(
+          { tockens: req.body.tockens },
+          (err, updatedUser) => {
+            if (err) res.status(500).send("Error during update!");
+            res.send(updatedUser);
+          }
+        );
+      }
     });
   });
 };

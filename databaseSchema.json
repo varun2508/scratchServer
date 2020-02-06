@@ -1,95 +1,89 @@
-
 {
   "User": {
     "_id": {
       "$oid": "5d876e78a13717190ede417b"
-  },
-  "email": "lassa@gmail.com",
-  "password": "$2a$10$3LM/24SiOfWaGkhU32y7S.pGAC2WGfKwegYxmg0VStPSimJhBztHK",
-  "firstName": "Stas",
-  "lastName": "John",
-  "birthDate": "22.02.1989",
-  "isActive": true,
-  "plan": "Silver",
-  "tockens": 10,
-  "userId": {
-      "$oid": "5d876e78a13717190ede417b"
-  },
-  "cashBalance": {
-    "amount": 10,
-    "currency": "dollar"
-  },
-  "bankDetails": {
-    "bankName":"",
-    "routinNumber": "",
-    "accountHolderName": "",
-    "accountNumber": ""
-  },
-  "secretQuestions": {
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": ""
-  },
-  "notifications":{
-    "phoneNotifications": {
-      "passwordChanged": true
     },
-    "emailNotification": {
-      "passwordChanged": false
-    }
+    "email": "lassa@gmail.com",
+    "password": "$2a$10$3LM/24SiOfWaGkhU32y7S.pGAC2WGfKwegYxmg0VStPSimJhBztHK",
+    "firstName": "Stas",
+    "lastName": "John",
+    "birthDate": "22.02.1989",
+    "isActive": true,
+    "plan": "Silver",
+    "tockens": 10,
+    "userId": {
+      "$oid": "5d876e78a13717190ede417b"
+    },
+    "cashBalance": {
+      "amount": 10,
+      "currency": "dollar"
+    },
+    "bankDetails": {
+      "bankName": "",
+      "routinNumber": "",
+      "accountHolderName": "",
+      "accountNumber": ""
+    },
+    "secretQuestions": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+    },
+    "notifications": {
+      "phoneNotifications": {
+        "passwordChanged": true
+      },
+      "emailNotification": {
+        "passwordChanged": false
+      }
+    },
+    "winRatio": 64,
+    "referalLink": "http://google.com",
+    "lastPlayedType": ["desert", "fruits", "bonus"],
+    "favorites": ["asdad34", "sdf4534der"]
   },
-  "winRatio": 64,
-  "referalLink":"http://google.com",
-  "lastPlayedType": ["desert", "fruits", "bonus"],
-  "favorites": ["asdad34","sdf4534der"]
-  },
-  "WeeklyTop":{
-    "avgWinRatio": 52,
-    "top":[{
-      "firstName": "Jacque",
-      "lastName": "Fenix",
-      "gameName": "",
-      "date":"",
-      "amount":""
 
-    }]
-  },
   "Referals": [
-    {  "userId": {
-      "$oid": "5d876e78a13717190ede417b"
-    },
-    "id": "12sd123fs423dadskj",
-    "users":[
-              {
-                "firstName": "Jacque",
-                "lastName": "Fenix",
-                "gameName": "",
-                "date":"",
-                "amount":""
-              }
-            ]
+    {
+      "userId": {
+        "$oid": "5d876e78a13717190ede417b"
+      },
+      "id": "12sd123fs423dadskj",
+      "users": [
+        {
+          "firstName": "Jacque",
+          "lastName": "Fenix",
+          "gameName": "",
+          "date": "",
+          "amount": ""
+        }
+      ]
     }
   ],
-  "FAQ":{
+  "FAQ": {
     "participationAge": "",
     "withdrawalLimits": "",
     "onlineCasinoRequirements": "",
     "withdrawalMethod": ""
   },
   "Terms&Conditions": {
-    "sections":[{
-      "sectionName": "How We Collect Information",
-      "paragraphs":["asda asd ","asdasdasd"]
-    }]
+    "sections": [
+      {
+        "sectionName": "How We Collect Information",
+        "paragraphs": ["asda asd ", "asdasdasd"]
+      }
+    ]
   },
   "PrivacyPolicy": {
-    "sections":[{
-      "sectionName": "User Rights",
-      "paragraphs":["asda asd ","asdasdasd"]
-    }]
+    "sections": [
+      {
+        "sectionName": "User Rights",
+        "paragraphs": ["asda asd ", "asdasdasd"]
+      }
+    ]
   },
-  "Games":{
+  "Games": {
     "gameStore": [
       {
         "id": "asd786sa6d7",
@@ -98,17 +92,16 @@
         "category": "fruit",
         "keywords": "fruit",
         "instructions": "Scratch. Match three to win!",
-        "likedBy":["ads8797asdff"],
+        "likedBy": ["ads8797asdff"],
         "winAmount": "60",
         "backAmount": "10",
         "winProbabilityPercent": "30",
-        "imagesLink":["https://image.flaticon.com/icons/svg/2238/2238126.svg"]
+        "imagesLink": ["https://image.flaticon.com/icons/svg/2238/2238126.svg"]
       }
     ],
-    "featured":["asd786sa6d7"],
+    "featured": ["asd786sa6d7"],
     "topWinningThisWeek": ["asd786sa6d7"]
-  }
-  ,
+  },
   "WinHistory": [
     {
       "id": "asdads",
@@ -116,22 +109,24 @@
       "firstName": "Jacque",
       "lastName": "Fenix",
       "gameName": "",
-      "date":"",
-      "amount":""
+      "date": "",
+      "amount": ""
     }
   ],
-  "WeeklyWinners":[
-    {
-      "id": "asdads",
-      "userId": "897asd78",
-      "firstName": "Jacque",
-      "lastName": "Fenix",
-      "gameName": "",
-      "date":"",
-      "amount":""
-    }
-  ]
+  "WeeklyTop": {
+    "avgWinRatio": 52,
+    "wins": 0,
+    "losses": 0,
+    "currentWeek": "",
+    "top": [
+      {
+        "userId": "897asd78",
+        "firstName": "Jacque",
+        "lastName": "Fenix",
+        "gameName": "",
+        "date": "",
+        "amount": ""
+      }
+    ]
+  }
 }
-
-
-
