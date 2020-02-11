@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const config = require('../../server/clientHost');
-const app = require('../../server/server.js');
-const debug = require('debug')('user.js');
-const ejs = require('ejs');
-const fs = require('fs');
+const config = require("../../server/clientHost");
+const app = require("../../server/server.js");
+const debug = require("debug")("user.js");
+const ejs = require("ejs");
+const fs = require("fs");
 
 module.exports = function(Client) {
-  let Role, RoleMapping;
+  let Role, RoleMapping, Notifications;
 
-  Client.observe('after save', async (ctx, next) => {
+  Client.observe("after save", async (ctx, next) => {
     try {
       Role = app.models.Role;
       RoleMapping = app.models.RoleMapping;
@@ -28,9 +28,9 @@ module.exports = function(Client) {
         }
       });
       if (role[0]) {
-        debug('<<<<<<<<Role exists: ', role);
+        debug("<<<<<<<<Role exists: ", role);
         let roleMapping = await RoleMapping.create({
-          principalType: 'USER',
+          principalType: "USER",
           principalId: ctx.instance.id,
           roleId: role[0].id
         });
@@ -44,32 +44,49 @@ module.exports = function(Client) {
           name: ctx.instance.userType
         });
 
-        debug('Agent role', userRole);
+        debug("Agent role", userRole);
         const agent = await userRole.principals.create({
           principalType: RoleMapping.USER,
           principalId: ctx.instance.id
         });
 
-        debug('Created principal for new user:', agent);
+        debug("Created principal for new user:", agent);
 
-        debug('>>>>>>> Role do not exists. Response: ', roleMapArr);
+        debug(">>>>>>> Role do not exists. Response: ", roleMapArr);
         return Promise.resolve(roleMapArr);
       }
       next();
     } catch (error) {
-      debug('<<<<<<Error', error);
+      debug("<<<<<<Error", error);
       return Promise.reject(error);
     }
   });
 
   // send password reset link when requested
-  Client.on('resetPasswordRequest', function(info) {
-    console.log('----------info in reset', info);
-    const url = 'http://' + config.host + ':' + config.port + '/reset-password';
+  Client.on("resetPasswordRequest", function(info) {
+    console.log("----------info in reset", info);
+
+    Notifications = app.models.Notifications;
+    const url = "http://" + config.host + ":" + config.port + "/reset-password";
+
+    Notifications.create(
+      {
+        userId: "5e40718211418d1e7c536a4d",
+        message: "Your password has been changed",
+        date: new Date(),
+        read: false
+      },
+      (err, resp) => {
+        if (err) {
+          console.log("----------error happened on server on notification");
+        }
+        console.log("-------resp on notifications---", resp);
+      }
+    );
     /*eslint-disable */
     const template = fs.readFileSync(
-      './server/views/ressetEmailTemplate.ejs',
-      'utf8'
+      "./server/views/ressetEmailTemplate.ejs",
+      "utf8"
     );
 
     const html = ejs.render(template, {
@@ -81,12 +98,12 @@ module.exports = function(Client) {
     Client.app.models.Email.send(
       {
         to: info.email,
-        subject: 'Password reset',
+        subject: "Password reset",
         html
       },
       function(err) {
-        if (err) return debug('> error sending password reset email', err);
-        debug('> sending password reset email to:', info.email);
+        if (err) return debug("> error sending password reset email", err);
+        debug("> sending password reset email to:", info.email);
       }
     );
   });

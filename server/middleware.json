@@ -23,9 +23,11 @@
         "includeSubdomains": true
       }
     },
-    "helmet#hidePoweredBy": {      "params": {
-      "setTo": "PHP 7.2.6"
-    }},
+    "helmet#hidePoweredBy": {
+      "params": {
+        "setTo": "PHP 7.2.6"
+      }
+    },
     "helmet#ieNoOpen": {},
     "helmet#noSniff": {},
     "helmet#noCache": {
@@ -34,23 +36,29 @@
   },
   "session": {},
   "auth": {},
-  "parse": {"body-parser#json": {
-    "params": { "limit": "5mb" }
-  },
-  "body-parser#urlencoded": {
-    "params": {
-      "limit": "5mb",
-      "extended": true
+  "parse": {
+    "body-parser#json": {
+      "params": { "limit": "5mb" }
+    },
+    "body-parser#urlencoded": {
+      "params": {
+        "limit": "5mb",
+        "extended": true
+      }
     }
-  }},
+  },
   "routes": {
     "loopback#rest": {
-      "paths": [
-        "${restApiRoot}"
-      ]
+      "paths": ["${restApiRoot}"]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": [
+      {
+        "params": "$!../client"
+      }
+    ]
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

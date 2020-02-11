@@ -110,7 +110,8 @@
       "lastName": "Fenix",
       "gameName": "",
       "date": "",
-      "amount": ""
+      "amount": "",
+      "gameCost": ""
     }
   ],
   "WeeklyTop": {
@@ -125,7 +126,8 @@
         "lastName": "Fenix",
         "gameName": "",
         "date": "",
-        "amount": ""
+        "amount": "",
+        "gameCost": ""
       }
     ]
   }

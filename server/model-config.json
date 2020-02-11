@@ -19,7 +19,10 @@
   },
   "Client": {
     "dataSource": "scratch_dev",
-    "public": true
+    "public": true,
+    "options": {
+      "ttl": 2888800
+    }
   },
   "AccessToken": {
     "dataSource": "scratch_dev",
@@ -52,6 +55,14 @@
     "public": true
   },
   "WeeklyTop": {
+    "dataSource": "scratch_dev",
+    "public": true
+  },
+  "GeneralStats": {
+    "dataSource": "scratch_dev",
+    "public": true
+  },
+  "Notifications": {
     "dataSource": "scratch_dev",
     "public": true
   }

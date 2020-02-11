@@ -41,43 +41,59 @@
       "required": false,
       "default": "Bronze"
     },
-  "tockens": {
-    "type": "number",
-    "require": false,
-    "default": 0
-  },
-  "cashBalance": {
-    "type": "object",
-    "required": false
-  },
-  "bankDetails": {
-    "type": "object",
-    "required": false
-  },
-  "secretQuestions": {
-    "type": "object",
-    "required": false
-  },
-  "notifications":{
-    "type": "object",
-    "required": false
-  },
-  "winRatio": {
-    "type": "number",
-    "require": false
-  },
-  "referalLink":{
-    "type": "string",
-    "require": false
-  },
-  "lastPlayedType": {
-    "type": "array",
-    "required": false
-  },
-  "favorites": {
-    "type": "array",
-    "required": false
-  }
+    "tockens": {
+      "type": "number",
+      "require": false,
+      "default": 0
+    },
+    "cashBalance": {
+      "type": "object",
+      "required": false
+    },
+    "bankDetails": {
+      "type": "object",
+      "required": false
+    },
+    "secretQuestions": {
+      "type": "object",
+      "required": false
+    },
+    "notifications": {
+      "type": "object",
+      "required": false
+    },
+    "winRatio": {
+      "type": "number",
+      "require": false,
+      "default": 0
+    },
+    "win": {
+      "type": "number",
+      "require": false,
+      "default": 0
+    },
+    "losses": {
+      "type": "number",
+      "require": false,
+      "default": 0
+    },
+    "totalUserGamesNumber": {
+      "type": "number",
+      "require": false,
+      "default": 0
+    },
+    "referalLink": {
+      "type": "string",
+      "require": false
+    },
+    "lastPlayedType": {
+      "type": "array",
+      "required": false
+    },
+    "favorites": {
+      "type": "array",
+      "required": false
+    }
   },
   "validations": [],
   "relations": {

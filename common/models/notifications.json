@@ -1,5 +1,5 @@
 {
-  "name": "WinHistory",
+  "name": "Notifications",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -10,27 +10,15 @@
       "type": "string",
       "required": true
     },
-    "firstName": {
-      "type": "string",
+    "read": {
+      "type": "boolean",
       "required": false
     },
-    "lastName": {
-      "type": "string",
-      "required": false
-    },
-    "gameName": {
+    "message": {
       "type": "string",
       "required": false
     },
     "date": {
-      "type": "string",
-      "required": false
-    },
-    "amount": {
-      "type": "string",
-      "required": false
-    },
-    "gameCost": {
       "type": "string",
       "required": false
     }
