@@ -14,7 +14,7 @@ $().ready(function() {
           "Content-Type": "application/json"
         }
       };
-      const URL = `http://localhost:3000/api/Clients?access_token=sdZ2Phl1CnCgjsfTM8dbVrbMPRWHrzCwp3FiA1Hr5N5Xlc87bieXz6o4e5H7eBV3`;
+      const URL = `http://localhost:3000/api/Clients?access_token=2qo9yXDrub7Nt26PHhbzxT2aplK0inWSraXHMqwC0DQ37OvPcfex9WNjAEn6CNrs`;
       return fetch(URL, fetchOption)
         .then(async response => {
           const clients = await response.json();

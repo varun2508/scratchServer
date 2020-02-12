@@ -5,6 +5,12 @@ var getWeek = require("date-fns/getWeek");
 
 module.exports = function(app) {
   const GeneralStats = app.models.GeneralStats;
+  const Notifications = app.models.Notifications;
+
+  const sendNotification = (userId, message) => {
+    const notification = { userId, read: false, message, date: new Date() };
+    Notifications.create(notification);
+  };
 
   const prepareWeeklyTop = statisticData => {
     const WeeklyTop = app.models.WeeklyTop;
@@ -222,12 +228,18 @@ module.exports = function(app) {
           ? client.totalUserGamesNumber + 1
           : client.totalUserGamesNumber;
         const amountWon = req.body.win
-          ? req.body.amount - req.body.gameCost
-          : 0;
+          ? client.amountWon + (req.body.amount - req.body.gameCost)
+          : client.amountWon;
         const amountLoosed = !req.body.win
-          ? req.body.gameCost - req.body.amount
-          : 0;
+          ? client.amountLoosed + (req.body.gameCost - req.body.amount)
+          : client.amountLoosed;
 
+        if (client.win === 0 && req.body.win) {
+          sendNotification(
+            client.id,
+            "Congratulations on your first win! Keep up!"
+          );
+        }
         client.updateAttributes(
           {
             tockens: req.body.tockens,

@@ -3,10 +3,9 @@
 module.exports = function(Notifications) {
   Notifications.getNotificationsForUser = function(data, cb) {
     const { id } = data;
-
+    console.log("----------data", data);
     Notifications.find({ where: { userId: id } }, function(err, notifications) {
       if (err) throw err;
-      console.log("------notifications----", notifications);
       cb(null, notifications);
     });
   };
@@ -16,35 +15,14 @@ module.exports = function(Notifications) {
     returns: { arg: "data", type: "array" }
   });
 
-  Notifications.setNotificationAsRead = (body, cb) => {
+  Notifications.setNotificationAsRead = async body => {
     const { userId, id, data } = body;
-    console.log("----------body", body);
-    // Notifications.find({ where: { id } }, async (err, notifications) => {
-    //   if (err) throw err;
-    //   console.log(
-    //     "------notifications in setNotificationAsRead----",
-    //     notifications
-    //   );
-    //   // await Notifications.update(data)
-
-    // });
-
     try {
-      Notifications.updateAll({ id: id }, data, () => {
-        Notifications.find({ where: { userId: userId } }, function(
-          err,
-          result
-        ) {
-          if (err) throw err;
-          console.log("------notifications----", result);
-          // return notifications;
-          cb(null, result);
-        });
-      });
+      await Notifications.updateAll({ id: id }, data);
 
-      console.log("------notifications2222----", notifications);
+      return await Notifications.find({ where: { userId: userId } });
     } catch (error) {
-      console.log("--------error in cath--");
+      console.log("--------error in set as read in cath--");
       throw new Error(error);
     }
   };
