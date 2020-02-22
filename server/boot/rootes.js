@@ -258,4 +258,61 @@ module.exports = function(app) {
       }
     });
   });
+
+  app.post("/api/postFriendReferralCode", function(req, res, next) {
+    console.log("----postFriendReferralCode------", req.body.referralCode);
+    const User = app.models.Client;
+
+    User.find(
+      {
+        where: {
+          referralCode: req.body.referralCode
+        }
+      },
+      (err, users) => {
+        console.log("----------user referral master", users);
+        if (err) res.status(500).send("Error during submit referral!");
+        // sendNotification(
+        // 	client.id,
+        // 	"Congratulations on your first win! Keep up!"
+        // );
+
+        if (users[0]) {
+          if (req.body.referralCode === users[0].referralCode) {
+            res.send({
+              success: false,
+              message: "You can not use this code! Please try again!"
+            });
+            return;
+          }
+          users[0].updateAttributes(
+            {
+              referrals: [
+                ...users[0].referrals,
+                {
+                  firstName: req.body.firstName,
+                  lastName: req.body.lastName,
+                  date: req.body.date,
+                  amount: req.body.amount
+                }
+              ]
+            },
+            (err, updatedUser) => {
+              if (err) res.status(500).send("Error during submit referral!");
+              res.send({
+                success: true,
+                message: "Congratulations! You received 50 tockens."
+              });
+              return;
+            }
+          );
+        } else {
+          res.send({
+            success: false,
+            message: "Invalid referral code! Please try again!"
+          });
+        }
+      }
+    );
+  });
 };

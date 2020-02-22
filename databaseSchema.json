@@ -11,6 +11,7 @@
     "isActive": true,
     "plan": "Silver",
     "tockens": 10,
+    "winRatio": 64,
     "userId": {
       "$oid": "5d876e78a13717190ede417b"
     },
@@ -38,29 +39,19 @@
         "passwordChanged": false
       }
     },
-    "winRatio": 64,
-    "referalLink": "http://google.com",
+    "referralCode": "csf4rde",
     "lastPlayedType": ["desert", "fruits", "bonus"],
     "favorites": ["asdad34", "sdf4534der"]
   },
-
-  "Referals": [
+  "referrals": [
     {
-      "userId": {
-        "$oid": "5d876e78a13717190ede417b"
-      },
-      "id": "12sd123fs423dadskj",
-      "users": [
-        {
-          "firstName": "Jacque",
-          "lastName": "Fenix",
-          "gameName": "",
-          "date": "",
-          "amount": ""
-        }
-      ]
+      "firstName": "Jacque",
+      "lastName": "Fenix",
+      "date": "",
+      "amount": ""
     }
   ],
+
   "FAQ": {
     "participationAge": "",
     "withdrawalLimits": "",
