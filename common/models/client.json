@@ -66,7 +66,12 @@
       "type": "number",
       "require": false,
       "default": 0
-    },
+		},
+		"winProb":  {
+      "type": "number",
+      "require": false,
+      "default": 50
+		},
     "win": {
       "type": "number",
       "require": false,
@@ -82,9 +87,22 @@
       "require": false,
       "default": 0
     },
-    "referalLink": {
+    "referralCode": {
       "type": "string",
       "require": false
+    },
+    "referrals": {
+      "type": "array",
+      "required": false
+    },
+    "usedReferrals": {
+      "type": "array",
+      "required": false
+    },
+    "referralEarnings": {
+      "type": "number",
+      "require": false,
+      "default": 0
     },
     "lastPlayedType": {
       "type": "array",

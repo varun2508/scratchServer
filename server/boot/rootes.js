@@ -259,9 +259,17 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/postFriendReferralCode", function(req, res, next) {
-    console.log("----postFriendReferralCode------", req.body.referralCode);
+  app.post("/api/postFriendReferralCode", async (req, res, next) => {
     const User = app.models.Client;
+    const applyier = await User.findById(req.body.id);
+
+    if (applyier.usedReferrals.includes(req.body.referralCode)) {
+      res.send({
+        success: false,
+        message: "You already used this code!"
+      });
+      return;
+    }
 
     User.find(
       {
@@ -272,21 +280,17 @@ module.exports = function(app) {
       (err, users) => {
         console.log("----------user referral master", users);
         if (err) res.status(500).send("Error during submit referral!");
-        // sendNotification(
-        // 	client.id,
-        // 	"Congratulations on your first win! Keep up!"
-        // );
-
         if (users[0]) {
-          if (req.body.referralCode === users[0].referralCode) {
+          if (req.body.referralCode === applyier.referralCode) {
             res.send({
               success: false,
-              message: "You can not use this code! Please try again!"
+              message: "You can not use this code! It is yours!"
             });
             return;
           }
           users[0].updateAttributes(
             {
+              referralEarnings: users[0].referralEarnings + req.body.amount,
               referrals: [
                 ...users[0].referrals,
                 {
@@ -297,11 +301,22 @@ module.exports = function(app) {
                 }
               ]
             },
-            (err, updatedUser) => {
+            async (err, updatedUser) => {
               if (err) res.status(500).send("Error during submit referral!");
+              await applyier.updateAttributes({
+                tockens: applyier.tockens + req.body.amount,
+                usedReferrals: [
+                  ...applyier.usedReferrals,
+                  req.body.referralCode
+                ]
+              });
+              sendNotification(
+                users[0].id,
+                `Congratulations!!! You referral code was applied. You got ${req.body.amount} tokens!`
+              );
               res.send({
                 success: true,
-                message: "Congratulations! You received 50 tockens."
+                message: "Congratulations! You received 50 tokens."
               });
               return;
             }
@@ -314,5 +329,29 @@ module.exports = function(app) {
         }
       }
     );
+  });
+
+  console.log("----addEarningToBalance------");
+  app.post("/api/addEarningToBalance", function(req, res, next) {
+    const User = app.models.Client;
+    User.findById(req.body.userId, (err, client) => {
+      if (client) {
+        console.log("----------client", client);
+        client.updateAttributes(
+          {
+            tockens: client.tockens + client.referralEarnings,
+            referralEarnings: 0
+          },
+          (err, updatedUser) => {
+            if (err) {
+              console.log("----------err", err);
+              res.status(500).send("Error during update!");
+            } else {
+              res.send(updatedUser);
+            }
+          }
+        );
+      }
+    });
   });
 };

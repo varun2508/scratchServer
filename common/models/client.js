@@ -6,7 +6,7 @@ const debug = require("debug")("user.js");
 const ejs = require("ejs");
 const fs = require("fs");
 
-module.exports = function(Client) {
+module.exports = function (Client) {
   let Role, RoleMapping, Notifications;
 
   Client.observe("after save", async (ctx, next) => {
@@ -24,15 +24,15 @@ module.exports = function(Client) {
       const role = await Role.find({ where: { name: ctx.instance.userType } });
       const roleMapArr = await RoleMapping.find({
         where: {
-          principalId: ctx.instance.id
-        }
+          principalId: ctx.instance.id,
+        },
       });
       if (role[0]) {
         debug("<<<<<<<<Role exists: ", role);
         let roleMapping = await RoleMapping.create({
           principalType: "USER",
           principalId: ctx.instance.id,
-          roleId: role[0].id
+          roleId: role[0].id,
         });
 
         debug(
@@ -41,13 +41,13 @@ module.exports = function(Client) {
         return Promise.resolve(roleMapArr);
       } else {
         const userRole = await Role.create({
-          name: ctx.instance.userType
+          name: ctx.instance.userType,
         });
 
         debug("Agent role", userRole);
         const agent = await userRole.principals.create({
           principalType: RoleMapping.USER,
-          principalId: ctx.instance.id
+          principalId: ctx.instance.id,
         });
 
         debug("Created principal for new user:", agent);
@@ -63,7 +63,7 @@ module.exports = function(Client) {
   });
 
   // send password reset link when requested
-  Client.on("resetPasswordRequest", function(info) {
+  Client.on("resetPasswordRequest", function (info) {
     console.log("----------info in reset", info);
 
     Notifications = app.models.Notifications;
@@ -74,7 +74,7 @@ module.exports = function(Client) {
         userId: "5e40718211418d1e7c536a4d",
         message: "Your password has been changed",
         date: new Date(),
-        read: false
+        read: false,
       },
       (err, resp) => {
         if (err) {
@@ -91,7 +91,7 @@ module.exports = function(Client) {
 
     const html = ejs.render(template, {
       info: info,
-      url: url
+      url: url,
     });
 
     /*eslint-enable */
@@ -99,12 +99,17 @@ module.exports = function(Client) {
       {
         to: info.email,
         subject: "Password reset",
-        html
+        html,
       },
-      function(err) {
+      function (err) {
         if (err) return debug("> error sending password reset email", err);
         debug("> sending password reset email to:", info.email);
       }
     );
+  });
+
+  Client.on("changeWinProb", function (info) {
+    console.log("----------changeWinProb", info);
+    return { resp: "success" };
   });
 };
