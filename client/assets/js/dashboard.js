@@ -1,3 +1,9 @@
+const logout = () => {
+  console.log("----------logout callerd");
+  localStorage.removeItem("token");
+  window.location.replace("https://scratchandwin.herokuapp.com/index.html");
+};
+
 $().ready(function () {
   $sidebar = $(".sidebar");
   $sidebar_img_container = $sidebar.find(".sidebar-background");

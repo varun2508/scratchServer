@@ -1,6 +1,11 @@
+const logout = () => {
+  console.log("----------logout callerd");
+
+  localStorage.removeItem("token");
+  window.location.replace("https://scratchandwin.herokuapp.com/index.html");
+};
 $().ready(function () {
-  const token =
-    "n2CQdmKkYDmgSQPNmAvDvwxMQyiiLQf4jkRIPKv1OYf0M9Ku7ezGuy9YeamkH6We";
+  let token = localStorage.getItem("token");
   const createTable = async function () {
     var table = document.getElementById("accountsTbody");
 
@@ -15,22 +20,26 @@ $().ready(function () {
       return fetch(URL, fetchOption)
         .then(async (response) => {
           const clients = await response.json();
+          console.log("------resi----", clients);
+          if (clients.error) {
+            throw clients.error;
+          }
           return clients;
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log("------errr----", JSON.stringify(err));
+          console.log("----------status", err.statusCode);
+          if (err.statusCode === 401) {
+            alert("Authorization Required. Please log in!");
+            window.location.replace(
+              "https://scratchandwin.herokuapp.com/index.html"
+            );
+          }
           return new Error("Error on generalStats");
         });
     };
     const data = await getHistory();
 
-    // const myFunction = () => {
-    //   var x = document.getElementById("mySelect").value;
-    //   document.getElementById("demo").innerHTML = "You selected: " + x;
-    // };
-    function myFunction() {
-      var x = document.getElementById("mySelect").value;
-      document.getElementById("demo").innerHTML = "You selected: " + x;
-    }
     for (let index = data.length - 1; index >= 0; index--) {
       const element = data[index];
       var row = table.insertRow(0);
@@ -66,7 +75,7 @@ $().ready(function () {
       document
         .getElementById(`my-select-${element.id}`)
         .addEventListener("change", function () {
-          const getGeneralStats = async () => {
+          const changeUserWinProb = async () => {
             document.getElementById("accountsTbody").style.display = "none";
             document.getElementById("loader").style.display = "block";
             const fetchOption = {
@@ -76,6 +85,7 @@ $().ready(function () {
               },
               body: JSON.stringify({ ...element, winProb: this.value }),
             };
+
             const URL = `https://scratchandwin.herokuapp.com/api/Clients/${element.id}?access_token=${token}`;
             return fetch(URL, fetchOption)
               .then(async (response) => {
@@ -88,10 +98,11 @@ $().ready(function () {
                 return new Error("Error on generalStats");
               });
           };
-          getGeneralStats();
+          changeUserWinProb();
         });
     }
   };
   createTable();
+
   document.getElementById("loader").style.display = "none";
 });

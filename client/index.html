@@ -1,299 +1,195 @@
-<!-- 
-=========================================================
- Light Bootstrap Dashboard - v2.0.1
-=========================================================
+<html>
+<head>
+    <title>Log In</title>
 
- Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE)
+    <link rel="shortcut icon" href="../assets/img/logo.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/logo.png" />
+		<!-- <link rel="icon" type="image/png" href="../assets/img/logo.png" /> -->
 
- Coded by Creative Tim
+    <meta name="viewport" content="initial-scale=1">
+    <meta charset="utf-8">
 
-=========================================================
+		<script src="./assets/js/login.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				box-sizing: border-box;
+			}
+		body{
+			background-image: url('../assets/img/scratch.png');
+			padding: 0;
+			font-family: Tahoma, Helvetica, sans-serif;
+		}
+		.container{
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+			/* background-image: '../assets/img/scratch.png'; */
+			/* background: #FB404B; */
+			background: -moz-linear-gradient(top, #FB404B 0%, #bb0502 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FB404B), color-stop(100%, #bb0502));
+			background: -webkit-linear-gradient(top, #FB404B 0%, #bb0502 100%);
+			background: -o-linear-gradient(top, #FB404B 0%, #bb0502 100%);
+			background: -ms-linear-gradient(top, #FB404B 0%, #bb0502 100%);
+			background: linear-gradient(to bottom, #FB404B 0%, #bb0502 100%);
+			background-size: 150% 150%;
+			opacity: 0.85;
+		}
 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  -->
-<!DOCTYPE html>
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/logo.png" />
-    <link rel="icon" type="image/png" href="../assets/img/logo.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-      Dashboard
-    </title>
-    <meta
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
-      name="viewport"
-    />
-    <!--     Fonts and icons     -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-    />
-    <!-- CSS Files -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link
-      href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 "
-      rel="stylesheet"
-    />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/css/demo.css" rel="stylesheet" />
-  </head>
+	.app {
+	  background-color: #fff;
+	  width: 330px;
+	  height: 570px;
+	  margin: 2em auto;
+	  border-radius: 5px;
+	  padding: 1em;
+	  position: relative;
+	  overflow: hidden;
+		box-shadow: 0 6px 31px -2px rgba(0, 0, 0, .3);
+	}
 
-  <body>
-    <div class="wrapper">
-      <div
-        class="sidebar"
-        data-color="red"
-        data-image="../assets/img/scratch.png"
-      >
-        <!--
-				 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
- 
-				 Tip 2: you can also add an image using data-image tag
-		 -->
-        <div class="sidebar-wrapper">
-          <div class="logo">
-            <a href="#" class="simple-text">
-              Scratch and Win
-            </a>
-          </div>
-          <ul class="nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">
-                <i class="nc-icon nc-chart-pie-35"></i>
-                <p>Dashboard</p>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="./table.html">
-                <i class="nc-icon nc-circle-09"></i>
-                <p>Accounts</p>
-              </a>
-            </li>
-          </ul>
+	a {
+		text-decoration: none;
+		color: #257aa6;
+	}
+
+	p {
+		font-size: 13px;
+		color: #333;
+		line-height: 2;
+	}
+		.light {
+			text-align: right;
+			color: #fff;
+		}
+			.light a {
+				color: #fff;
+			}
+
+	.bg {
+		width: 400px;
+		height: 550px;
+		background: #257aa6;
+		position: absolute;
+		top: -5em;
+		left: 0;
+		right: 0;
+		margin: auto;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		clip-path: ellipse(69% 46% at 48% 46%);
+	}
+
+	.form {
+		position: absolute;
+		top: 50;
+		left: 0;
+		right: 0;
+		width: 100%;
+		text-align: center;
+		padding: 2em;
+	}
+
+
+	.form input {
+	    width: 100%;
+	    padding: 13px 15px;
+	    margin: 0.7em auto;
+	    border-radius: 100px;
+	    border: none;
+	    background: rgb(255,255,255,0.3);
+	    outline: none;
+	    color: #fff;
+	}
+	input::placeholder {
+	    color: #fff;
+	    font-size: 13px;
+	}
+
+	.inputs {
+		margin-top: -4em;
+	}
+	h1, p {
+		color: #000;
+		font: 400;
+		font-size: large;
+	}
+		button {
+				display: flex;
+    	justify-content: center;
+    	margin: 5 auto;
+			width: 200px;
+	    padding: 13px 15px;
+	    border-radius: 100px;
+	    border: none;
+			background: #FB404B;
+			opacity: 1 !important;
+	    outline: none;
+	    color: #fff;
+	}
+	@media screen and (max-width: 640px) {
+			.app {
+				width: 100%;
+				height: 100vh;
+				border-radius: 0;
+			}
+
+			.bg {
+				top: -7em;
+				width: 450px;
+				height: 95vh;
+			}
+
+			.inputs {
+				margin: 0;
+			}
+			input, button {
+				padding: 18px 15px;
+			}
+		}
+		#loader{
+			display: none;
+    	justify-content: center;
+    	margin: 5 auto;
+			width: 200px;
+	    border-radius: 100px;
+	    border: none;
+			background: #FB404B;
+			opacity: 1 !important;
+	    outline: none;
+		}
+		 </style>
+</head>
+
+<body>
+	<div class="container" 				>
+	<div class="app">
+		<div class="bg"></div>
+		<div class="form" >
+			<h1>Login</h1>
+			<p> Please enter your email and password.</p>
+            <label>
+							Email <input type="text" name="login_field" id="email"/>
+            </label>
+            <label>
+							Password<input type="password" name="password_field" id="password"/>
+            </label>
+						<button onclick="callLogin()" id="submitButton">Login</button>
+						<div id="loader">
+							<img src="https://s3.eu-central-1.amazonaws.com/brosweb.site/scratch/loading.gif" height="41" alt="">
+						</div>
         </div>
-      </div>
-      <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg " color-on-scroll="500">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"> Accounts </a>
-            <button
-              href=""
-              class="navbar-toggler navbar-toggler-right"
-              type="button"
-              data-toggle="collapse"
-              aria-controls="navigation-index"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-bar burger-lines"></span>
-              <span class="navbar-toggler-bar burger-lines"></span>
-              <span class="navbar-toggler-bar burger-lines"></span>
-            </button>
-            <div
-              class="collapse navbar-collapse justify-content-end"
-              id="navigation"
-            >
-              <ul class="nav navbar-nav mr-auto">
-                <!-- <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nc-icon nc-zoom-split"></i>
-                    <span class="d-lg-block">&nbsp;Search</span>
-                  </a>
-                </li> -->
-              </ul>
-              <ul class="navbar-nav ml-auto">
-                <li class="dropdown nav-item">
-                  <a
-                    href="#"
-                    class="dropdown-toggle nav-link"
-                    data-toggle="dropdown"
-                  >
-                    <i class="nc-icon nc-planet"></i>
-                    <span class="notification">1</span>
-                    <span class="d-lg-none">Notification</span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Notification 1</a>
-                    <a class="dropdown-item" href="#">Notification 2</a>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <span class="no-icon">Dropdown</span>
-                  </a>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span class="no-icon">Log out</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!-- End Navbar -->
-        <div class="content">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card ">
-                  <div class="card-header ">
-                    <h4 class="card-title">General Statistics</h4>
-                  </div>
-                  <div class="card-body ">
-                    <div
-                      id="loader"
-                      style="display: flex;
-														justify-content: center;"
-                    >
-                      <img
-                        src="https://s3.eu-central-1.amazonaws.com/brosweb.site/scratch/loading.gif"
-                        alt=""
-                        height="72"
-                      />
-                    </div>
-                    <div id="generalStats" style="display: none;">
-                      <div class="stats">
-                        <i class="fa fa-gamepad"></i>
-                        <span>Total games played: </span
-                        ><span id="totalGamesPlayed"></span>
-                      </div>
-                      <div class="stats">
-                        <i class="fa fa-trophy"></i>
-                        <span>Total tokens won: </span>
-                        <span id="amountWon"></span>
-                      </div>
-                      <div class="stats">
-                        <i class="fa fa-minus"></i>
-                        <span>Total tokens lost: </span>
-                        <span id="amountLoosed"></span>
-                      </div>
-                    </div>
-                    <hr />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card ">
-                  <div class="card-header ">
-                    <h4 class="card-title">Winning Statistics</h4>
-                  </div>
-                  <div class="card-body" style="max-height: 390px;">
-                    <div
-                      id="chartPreferences"
-                      class="ct-chart ct-perfect-fourth"
-                    ></div>
-                    <div class="legend">
-                      <i class="fa fa-circle text-info"></i> Won
-                      <i class="fa fa-circle text-danger"></i> Loosed
-                    </div>
-                    <hr />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div
-                  style="max-height: 400px; overflow-x: scroll;"
-                  class="card card-plain table-plain-bg"
-                >
-                  <div class="card-header ">
-                    <h4 class="card-title">Winning history</h4>
-                    <!-- <p class="card-category">
-                      Here is a subtitle for this table
-                    </p> -->
-                  </div>
-                  <div class="card-body table-full-width table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <th>#</th>
-                        <th>Game</th>
-                        <th>Date</th>
-                        <th>Result</th>
-                        <th>Amount</th>
-                        <th>User ID</th>
-                        <th>User Name</th>
-                      </thead>
-                      <tbody id="winningHistoryTbody"></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer class="footer">
-          <div class="container-fluid">
-            <nav>
-              <ul class="footer-menu"></ul>
-              <p class="copyright text-center">
-                ©
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                <a href="#">Scratch and Win Team</a>
-              </p>
-            </nav>
-          </div>
-        </footer>
-      </div>
     </div>
-  </body>
-  <!--   Core JS Files   -->
-  <script
-    src="../assets/js/core/jquery.3.2.1.min.js"
-    type="text/javascript"
-  ></script>
-  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script
-    src="../assets/js/core/bootstrap.min.js"
-    type="text/javascript"
-  ></script>
+	</div>
+     
+</body>
 
-  <!--  Chartist Plugin  -->
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-
-  <script
-    src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 "
-    type="text/javascript"
-  ></script>
-  <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/js/dashboard.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-    });
-  </script>
 </html>
