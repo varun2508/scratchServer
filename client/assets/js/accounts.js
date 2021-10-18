@@ -1,7 +1,27 @@
-const logout = () => {
+const logout = async () => {
   console.log("----------logout callerd");
+  let token = localStorage.getItem("token");
+  const logoutCall = async () => {
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const URL = `https://scratchandwin.herokuapp.com/api/Clients/logout?access_token=${token}`;
+    return fetch(URL, fetchOption)
+      .then(async (response) => {
+        const res = await response.json();
+        localStorage.removeItem("token");
+        return res;
+      })
+      .catch(() => {
+        console.log("----------error logout");
+        return new Error("Error on logout");
+      });
+  };
 
-  localStorage.removeItem("token");
+  await logoutCall();
   window.location.replace("https://scratchandwin.herokuapp.com/index.html");
 };
 $().ready(function () {

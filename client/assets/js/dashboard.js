@@ -1,6 +1,26 @@
-const logout = () => {
-  console.log("----------logout callerd");
-  localStorage.removeItem("token");
+const logout = async () => {
+  let token = localStorage.getItem("token");
+  const logoutCall = async () => {
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const URL = `https://scratchandwin.herokuapp.com/api/Clients/logout?access_token=${token}`;
+    return fetch(URL, fetchOption)
+      .then(async (response) => {
+        const res = await response.json();
+        localStorage.removeItem("token");
+        return res;
+      })
+      .catch(() => {
+        console.log("----------error logout");
+        return new Error("Error on logout");
+      });
+  };
+
+  await logoutCall();
   window.location.replace("https://scratchandwin.herokuapp.com/index.html");
 };
 
@@ -195,19 +215,18 @@ demo = {
   },
 
   initDashboardPageCharts: async function () {
+    let token = localStorage.getItem("token");
     const getGeneralStats = async () => {
-      console.log("-----getting general-----");
       const fetchOption = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const URL = `https://scratchandwin.herokuapp.com/api/GeneralStats`;
+      const URL = `https://scratchandwin.herokuapp.com/api/GeneralStats?access_token=${token}`;
       return fetch(URL, fetchOption)
         .then(async (response) => {
           const stats = await response.json();
-          console.log("----------generalStats", stats);
           return stats;
         })
         .catch(() => {
@@ -254,22 +273,19 @@ demo = {
     });
     // document.getElementById("generalStats").style.display = "none";
     const createTable = async function () {
-      console.log("----------calling table funcitn");
       var table = document.getElementById("winningHistoryTbody");
 
       const getHistory = async () => {
-        console.log("-----getting history-----");
         const fetchOption = {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         };
-        const URL = `https://scratchandwin.herokuapp.com/api/WinHistories`;
+        const URL = `https://scratchandwin.herokuapp.com/api/WinHistories?access_token=${token}`;
         return fetch(URL, fetchOption)
           .then(async (response) => {
             const stats = await response.json();
-            console.log("----------winhistoru", stats);
             return stats;
           })
           .catch(() => {
@@ -278,7 +294,6 @@ demo = {
           });
       };
       const data = await getHistory();
-      console.log("----------data", data);
       document.getElementById("generalStats").style.display = "block";
       document.getElementById("loader").style.display = "none";
       for (let index = data.length - 1; index >= 0; index--) {

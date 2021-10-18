@@ -4,7 +4,8 @@
     "connector": "memory"
   },
   "scratch_dev": {
-    "url": "mongodb://clientapp:Scratch1212@ds127429.mlab.com:27429/scratch_dev",
+		"url": "mongodb+srv://clientapp:Scratch1212@scratch-dev.tproh.mongodb.net/scratch_dev?retryWrites=true&w=majority",
+		"sec":"mongodb://clientapp:Scratch1212@ds127429.mlab.com:27429/scratch_dev",
     "name": "scratch_dev",
     "connector": "loopback-connector-mongodb"
   },

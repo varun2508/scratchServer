@@ -3,7 +3,7 @@
 const debug = require("debug")("routes");
 var getWeek = require("date-fns/getWeek");
 
-module.exports = function(app) {
+module.exports = function (app) {
   const GeneralStats = app.models.GeneralStats;
   const Notifications = app.models.Notifications;
 
@@ -12,7 +12,7 @@ module.exports = function(app) {
     Notifications.create(notification);
   };
 
-  const prepareWeeklyTop = statisticData => {
+  const prepareWeeklyTop = (statisticData) => {
     const WeeklyTop = app.models.WeeklyTop;
     const currentWeek = getWeek(new Date());
     WeeklyTop.find({}, (err, weeklyTop) => {
@@ -40,7 +40,7 @@ module.exports = function(app) {
             avgWinRatio: 0,
             wins: 0,
             losses: 0,
-            top: []
+            top: [],
           },
           (err, obj) => {}
         );
@@ -48,7 +48,7 @@ module.exports = function(app) {
     });
   };
 
-  const changeWinHistory = statisticData => {
+  const changeWinHistory = (statisticData) => {
     const WinHistory = app.models.WinHistory;
     console.log("-------statisticData in history---", statisticData);
     WinHistory.create(statisticData, (err, createdObj) => {
@@ -57,7 +57,7 @@ module.exports = function(app) {
     });
   };
 
-  const updateGeneralStats = statsToUpdate => {
+  const updateGeneralStats = (statsToUpdate) => {
     GeneralStats.find({}, (err, generalStats) => {
       console.log("-----generalStats-----", generalStats[0]);
       const updatedWins = statsToUpdate.win
@@ -76,7 +76,7 @@ module.exports = function(app) {
           losses: updatedLosses,
           amountWon: statsToUpdate.amountWon + generalStats[0].amountWon,
           amountLoosed:
-            statsToUpdate.amountLoosed + generalStats[0].amountLoosed
+            statsToUpdate.amountLoosed + generalStats[0].amountLoosed,
         },
         (err, updatedStats) => {
           if (err) res.status(500).send("Error during update!");
@@ -87,55 +87,55 @@ module.exports = function(app) {
     });
   };
 
-  app.post("/api/Clients/login", function(req, response, next) {
+  app.post("/api/Clients/login", function (req, response, next) {
     const User = app.models.Client;
     let userRole, token;
     console.log("-------user login req.body---", req.body);
     let userLogin = User.login(
       {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       },
       "user"
     );
 
     userLogin
       .then(
-        tokenObject => {
+        (tokenObject) => {
           token = tokenObject;
           console.log("------token----", token);
           return User.find({
             where: {
-              email: req.body.email
-            }
+              email: req.body.email,
+            },
           });
         },
-        err => {
+        (err) => {
           throw err;
         }
       )
-      .then(res => {
+      .then((res) => {
         console.log("-------user login---", res);
         if (res[0].isActive === false) {
           response.status(400).send({
             message: "Your accound has been deactivated!",
-            statusCode: 401
+            statusCode: 401,
           });
           return;
         } else {
           return app.models.RoleMapping.find({
             where: {
-              principalId: token.userId
-            }
+              principalId: token.userId,
+            },
           });
         }
       })
-      .then(res => {
+      .then((res) => {
         if (res[0] !== undefined) {
           return app.models.Role.find({
             where: {
-              id: res[0].roleId
-            }
+              id: res[0].roleId,
+            },
           });
         } else {
           console.log("Role for this user was not found.");
@@ -143,18 +143,19 @@ module.exports = function(app) {
           // response.status(404).send('Not Found');
         }
       })
-      .then(res => {
+      .then((res) => {
         userRole = res[0].name;
-        console.log("------user----", token.__data.user, "userrole", userRole);
+        console.log("------user!----", token.__data.user, "userrole", res[0]);
         response.send({
           email: req.body.email,
           token: token.id,
           ttl: token.ttl,
           createdAt: token.created,
-          userId: token.userId
+          userId: token.userId,
+          role: userRole,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error during login: ", JSON.stringify(err));
         response
           .status(err.statusCode)
@@ -163,15 +164,15 @@ module.exports = function(app) {
   });
 
   // show password reset form
-  app.get("/reset-password", function(req, res, next) {
+  app.get("/reset-password", function (req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
     res.render("password-reset", {
       redirectUrl:
-        "/api/Clients/reset-password?access_token=" + req.accessToken.id
+        "/api/Clients/reset-password?access_token=" + req.accessToken.id,
     });
   });
 
-  app.post("/api/updateTockens", function(req, res, next) {
+  app.post("/api/updateTockens", function (req, res, next) {
     console.log("----updateTockens------");
     const User = app.models.Client;
     User.findById(req.body.userId, (err, client) => {
@@ -179,7 +180,7 @@ module.exports = function(app) {
         console.log("----------client", client);
         client.updateAttributes(
           {
-            tockens: req.body.tockens
+            tockens: req.body.tockens,
           },
           (err, updatedUser) => {
             if (err) {
@@ -194,7 +195,30 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/postGameResults", function(req, res, next) {
+  app.post("/api/Clients/adView", function (req, res, next) {
+    console.log("----adView------");
+    const User = app.models.Client;
+    User.findById(req.body.userId, (err, client) => {
+      if (client) {
+        console.log("----------client", client);
+        client.updateAttributes(
+          {
+            tockens: client + 30,
+          },
+          (err, updatedUser) => {
+            if (err) {
+              console.log("----------err", err);
+              res.status(500).send("Error during update!");
+            } else {
+              res.send(updatedUser);
+            }
+          }
+        );
+      }
+    });
+  });
+
+  app.post("/api/postGameResults", function (req, res, next) {
     console.log("----postGameResults------");
     const User = app.models.Client;
 
@@ -206,7 +230,7 @@ module.exports = function(app) {
       date: req.body.date,
       amount: req.body.amount,
       win: req.body.win,
-      gameCost: req.body.gameCost
+      gameCost: req.body.gameCost,
     };
 
     if (statisticData.date) {
@@ -215,7 +239,7 @@ module.exports = function(app) {
       updateGeneralStats({
         win: req.body.win,
         amountWon: req.body.win ? req.body.amount - req.body.gameCost : 0,
-        amountLoosed: !req.body.win ? req.body.gameCost - req.body.amount : 0
+        amountLoosed: !req.body.win ? req.body.gameCost - req.body.amount : 0,
       });
     }
 
@@ -248,7 +272,7 @@ module.exports = function(app) {
             losses: updatedLosses,
             winRatio: (updatedWin * 100) / updatedTotalUserGamesNumber,
             amountWon: amountWon,
-            amountLoosed
+            amountLoosed,
           },
           (err, updatedUser) => {
             if (err) res.status(500).send("Error during update!");
@@ -266,7 +290,7 @@ module.exports = function(app) {
     if (applyier.usedReferrals.includes(req.body.referralCode)) {
       res.send({
         success: false,
-        message: "You already used this code!"
+        message: "You already used this code!",
       });
       return;
     }
@@ -274,8 +298,8 @@ module.exports = function(app) {
     User.find(
       {
         where: {
-          referralCode: req.body.referralCode
-        }
+          referralCode: req.body.referralCode,
+        },
       },
       (err, users) => {
         console.log("----------user referral master", users);
@@ -284,7 +308,7 @@ module.exports = function(app) {
           if (req.body.referralCode === applyier.referralCode) {
             res.send({
               success: false,
-              message: "You can not use this code! It is yours!"
+              message: "You can not use this code! It is yours!",
             });
             return;
           }
@@ -297,9 +321,9 @@ module.exports = function(app) {
                   firstName: req.body.firstName,
                   lastName: req.body.lastName,
                   date: req.body.date,
-                  amount: req.body.amount
-                }
-              ]
+                  amount: req.body.amount,
+                },
+              ],
             },
             async (err, updatedUser) => {
               if (err) res.status(500).send("Error during submit referral!");
@@ -307,8 +331,8 @@ module.exports = function(app) {
                 tockens: applyier.tockens + req.body.amount,
                 usedReferrals: [
                   ...applyier.usedReferrals,
-                  req.body.referralCode
-                ]
+                  req.body.referralCode,
+                ],
               });
               sendNotification(
                 users[0].id,
@@ -316,7 +340,7 @@ module.exports = function(app) {
               );
               res.send({
                 success: true,
-                message: "Congratulations! You received 50 tokens."
+                message: "Congratulations! You received 50 tokens.",
               });
               return;
             }
@@ -324,7 +348,7 @@ module.exports = function(app) {
         } else {
           res.send({
             success: false,
-            message: "Invalid referral code! Please try again!"
+            message: "Invalid referral code! Please try again!",
           });
         }
       }
@@ -332,7 +356,7 @@ module.exports = function(app) {
   });
 
   console.log("----addEarningToBalance------");
-  app.post("/api/addEarningToBalance", function(req, res, next) {
+  app.post("/api/addEarningToBalance", function (req, res, next) {
     const User = app.models.Client;
     User.findById(req.body.userId, (err, client) => {
       if (client) {
@@ -340,7 +364,7 @@ module.exports = function(app) {
         client.updateAttributes(
           {
             tockens: client.tockens + client.referralEarnings,
-            referralEarnings: 0
+            referralEarnings: 0,
           },
           (err, updatedUser) => {
             if (err) {

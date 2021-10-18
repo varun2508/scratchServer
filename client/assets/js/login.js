@@ -16,7 +16,7 @@ const login = async (url = "", data = {}) => {
   });
   return await response.json(); // parses JSON response into native JavaScript objects
 };
-
+//https://scratchandwin.herokuapp.com/
 const callLogin = () => {
   const loginValue = document.getElementById("email").value;
   const passwordValue = document.getElementById("password").value;
@@ -30,6 +30,12 @@ const callLogin = () => {
     password: passwordValue,
   })
     .then((data) => {
+      if (!data.token) {
+        throw new Error("Authentification failed");
+      }
+      if (data.role !== "admin") {
+        throw new Error("You are not an admin!!!");
+      }
       console.log("----------token", data.token);
       localStorage.setItem("token", data.token);
       window.location.replace(
@@ -42,7 +48,16 @@ const callLogin = () => {
       console.log("resp on call", data); // JSON data parsed by `response.json()` call
     })
     .catch((err) => {
-      alert("Error during login! Please contact us!");
+      console.log("----------err", err);
+      if (err.message) {
+        alert(err.message);
+      } else {
+        alert("Error during login! Please contact us!");
+      }
+      document
+        .getElementById("submitButton")
+        .setAttribute("style", "display: block;");
+      document.getElementById("loader").setAttribute("style", "display: none;");
     });
 };
 // callLogin();
